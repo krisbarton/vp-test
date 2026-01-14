@@ -99,31 +99,50 @@ function App() {
     window.scrollTo(0, 0);
   }
 
-  return (
-    <main className="bg-gray-100 flex justify-center w-screen min-h-screen h-full">
-      <section className="max-w-5xl w-full">
-        <div className='flex gap-2 items-center'>
-          <Dropdown options={sortDropdownItems} onChange={onSelected} selected={apiRequest.sort} />
-          <span>{pagination.total} results</span>
-        </div>
-        { loading ? ( <Loading /> 
-        ) : (
-          <>
-            <ProductLayout items={products} />
-            {hasProducts && (
+ return (
+  <main className="bg-gray-100 flex justify-center w-screen min-h-screen h-full">
+    <section className="max-w-5xl w-full">
+      <div className="flex gap-2 items-center">
+        <Dropdown
+          options={sortDropdownItems}
+          onChange={onSelected}
+          selected={apiRequest.sort}
+        />
+        <span>{pagination.total} results</span>
+      </div>
+
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {!error && (
             <>
-              <div className='flex flex-col gap-5 items-center py-10'>
-                <ProgressBar value={progressBar} max={pagination.total ?? 0} />
-                <Pagination pageNumber={pageNumber} onChange={onPaginationUpdate} isLastPage={false} />
-              </div>
-              <ScrollToTop onChange={handleScrollTop} />
+              <ProductLayout items={products} />
+
+              {hasProducts && (
+                <>
+                  <div className="flex flex-col gap-5 items-center py-10">
+                    <ProgressBar
+                      value={progressBar}
+                      max={pagination.total ?? 0}
+                    />
+                    <Pagination
+                      pageNumber={pageNumber}
+                      onChange={onPaginationUpdate}
+                      isLastPage={false}
+                    />
+                  </div>
+
+                  <ScrollToTop onChange={handleScrollTop} />
+                </>
+              )}
             </>
-            )}
-          </> 
-        )}
-      </section>
-    </main>
-  )
+          )}
+        </>
+      )}
+    </section>
+  </main>
+)
 }
 
 export default App
