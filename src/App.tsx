@@ -40,7 +40,11 @@ function App() {
   }, [products]);
 
   const filterData = (data: ApiResponse) => {
-    setProducts(prev => [...prev, ...data.products]);
+    setProducts(prev => 
+      apiRequest.pageNumber === 1 ?
+      data.products :
+      [...prev, ...data.products]
+    );
     setPagination(data.pagination);
   }
 

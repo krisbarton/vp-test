@@ -11,15 +11,13 @@ export default function StarRating({ rating, count }: StarRatingProps) {
                 Array.from({ length: max}, (_, i) => {
                     const star = i + 1;
                     return (
-                        <>
-                            <span 
-                                key={star}
-                                className={
-                                    star <= rating ? "text-yellow-400" : "text-gray-400"
-                                }>
-                                ★ 
-                            </span>
-                        </>
+                        <span 
+                            key={star}
+                            className={
+                                star <= rating ? "text-yellow-400" : "text-gray-400"
+                            }>
+                            ★ 
+                        </span>
                     );
                 })
             }
